@@ -1,5 +1,27 @@
 <?php
 
+
+function userData($uid){
+    
+ $CI = &get_instance();
+    $result = $CI->db->where("id",$uid)->get('user')->row();
+    return $result;
+}
+function getGold(){
+ $CI = &get_instance();
+    $result = $CI->db->where("gold_type",'1')->order_by('id','DESC')->limit(1)->get('gold')->row();
+    return $result;
+}
+
+
+function getSilver(){
+    $CI = &get_instance();
+    $result = $CI->db->where("gold_type",'2')->order_by('id','DESC')->limit(1)->get('gold')->row();
+    return $result;
+}
+
+
+
 function show_error_messages($message = "")
 {
     if (empty($message)) {

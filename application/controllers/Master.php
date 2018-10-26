@@ -11,7 +11,7 @@ class Master extends CI_Controller {
 	{
 		$data['title']= "Add Gold";
 		$data['page_title']= "Add Gold";
-		$data['golds'] = $this->db->get('gold')->result();
+		$data['golds'] = $this->db->order_by('created_at','DESC')->get('gold')->result();
 		if($this->input->post()){
 $this->form_validation->set_rules('name', 'Name', 'required');
 $this->form_validation->set_rules('amount', 'Amount', 'required');
@@ -22,7 +22,9 @@ $this->form_validation->set_rules('qty', 'Quantity', 'required');
 				$name = $this->input->post('name');
 				$amount = $this->input->post('amount');
 				$qty = $this->input->post('qty');
+				$type = $this->input->post('type');
 				$gold = array(
+					'gold_type'=>$type,
 					'name'=>$name,
 					'amount'=>$amount,
 					'qty'=>$qty

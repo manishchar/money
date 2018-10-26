@@ -41,7 +41,7 @@
   </head>
 
   <body>
-<form action="<?php echo base_url().'login/checkAuth' ?>">
+<form method="POST" action="<?php echo base_url().'login/checkAuth' ?>">
     <div class="signpanel-wrapper">
       <div class="signbox">
         <div class="signbox-header">

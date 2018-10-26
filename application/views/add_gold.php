@@ -31,13 +31,25 @@ if($this->session->flashdata('message')){ ?>
           <form method="POST">
             <div class="form-layout">
               <div class="row mg-b-25">
-                <div class="col-lg-4">
+
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label">Type: <span class="tx-danger">*</span><?php echo form_error('type', '<span class="text text-danger">', '</span>'); ?></label>
+                    <select class="form-control" name="type">
+                      <option value="0" selected="" disabled="">Select Type</option>
+                      <option value="1">Gold</option>
+                      <option value="2">Silver</option>
+                    </select>
+                  </div>
+                </div><!-- col-4 -->
+
+                <div class="col-lg-3">
                   <div class="form-group">
                     <label class="form-control-label">Name: <span class="tx-danger">*</span><?php echo form_error('name', '<span class="text text-danger">', '</span>'); ?></label>
                     <input class="form-control" type="text" name="name" placeholder="Enter Gold Name">
                   </div>
                 </div><!-- col-4 -->
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                   <div class="form-group">
                     <label class="form-control-label">Amount: <span class="tx-danger">*</span><?php echo form_error('amount', '<span class="text text-danger">', '</span>'); ?></label>
                     <input class="form-control" type="number" name="amount" value="" placeholder="Enter Amount">
@@ -67,11 +79,11 @@ if($this->session->flashdata('message')){ ?>
               <thead>
                 <tr>
                   <th class="wd-15p">SNO</th>
+                  <th class="wd-15p">Type</th>
                   <th class="wd-15p">Name</th>
                   <th class="wd-15p">Amount</th>
                   <th class="wd-20p">Qty(Gram)</th>
-                  <th class="wd-15p">Status</th>
-                  <th class="wd-25p">Action</th>
+                  <th class="wd-15p">Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -82,11 +94,19 @@ if($this->session->flashdata('message')){ ?>
 
                         <tr>
                               <td><?php echo $i++; ?></td>
+                              <td>
+                                <?php  if($gold->gold_type == '1'){
+                                  echo "Gold";
+                                }else{
+                                  echo "Silver";
+                                } ?>
+                                
+                              </td>
                               <td><?php echo $gold->name; ?></td>
                               <td><?php echo $gold->amount; ?></td>
                               <td><?php echo $gold->qty; ?></td>
-                              <td><?php echo $gold->active; ?></td>
-                              <td>Edit | Delete | Active</td>
+                              <td><?php echo date('d-M-Y',$gold->created_at); ?></td>
+                              
                             </tr>
 
               <?php } } ?>

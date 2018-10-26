@@ -11,7 +11,7 @@ if(isset($_POST['save'])){
 $this->form_validation->set_rules('fname', 'First Name', 'required');
 $this->form_validation->set_rules('lname', 'Last Name', 'required');
 $this->form_validation->set_rules('mobile', 'Mobile number', 'required');
-$this->form_validation->set_rules('email', 'Email', 'required');
+$this->form_validation->set_rules('email', 'Email', 'required|is_unique[user.email]');
 			if ($this->form_validation->run() == FALSE)
 			{
 				$this->load->view('customer',$data);
@@ -109,5 +109,19 @@ $this->form_validation->set_rules('role_id', 'Role', 'required');
 
 		$data['members'] = $this->db->select('tab1.*,tab2.role_name')->join('role as tab2','tab1.role_id=tab2.id')->get('user as tab1')->result();
 		$this->load->view('view_member',$data);
+	}
+	public function addMoney(){
+		//echo json_encode($_POST);
+		$id = $this->input->post('id');
+		$name = $this->input->post('name');
+		$money = $this->input->post('money');
+
+		$flag =$this->db->where('id',$id)->update('user',array('amount'=>$money));
+		if($flag){
+			$response = array('status'=>'success','message'=>'money add success');
+		}else{
+			$response = array('status'=>'failed','message'=>'money add failed');
+		}
+echo json_encode($response);
 	}
 }

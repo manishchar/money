@@ -94,6 +94,9 @@
             <span class="square-8 bg-danger pos-absolute t-15 r-0 rounded-circle"></span>
             <!-- end: if statement -->
           </a>
+
+          <?php $user= userData($this->session->userdata('login')['id']);
+           ?>
           <div class="dropdown-menu wd-300 pd-0-force">
             <div class="dropdown-menu-header">
               <label>Notifications</label>
@@ -106,7 +109,7 @@
                 <div class="media pd-x-20 pd-y-15">
                   <div class="media-body">
                     <span class="pull-left">Gold</span> 
-                    <span class="pull-right bages">5</span>
+                    <span class="pull-right bages"><?php echo $user->gold; ?></span>
                   </div>
 
                   </div><!-- media -->
@@ -114,8 +117,8 @@
               <a href="" class="media-list-link read">
                 <div class="media pd-x-20 pd-y-15">
                   <div class="media-body">
-                    <span class="pull-left">Gold</span> 
-                    <span class="pull-right bages">5</span>
+                    <span class="pull-left">Silver</span> 
+                    <span class="pull-right bages"><?php echo $user->silver; ?></span>
                   </div>
                   
                   </div><!-- media -->
@@ -123,8 +126,8 @@
               <a href="" class="media-list-link read">
                 <div class="media pd-x-20 pd-y-15">
                   <div class="media-body">
-                    <span class="pull-left">Gold</span> 
-                    <span class="pull-right bages">5</span>
+                    <span class="pull-left">Amount</span> 
+                    <span class="pull-right bages"><?php echo $user->amount; ?></span>
                   </div>
                   
                   </div><!-- media -->
@@ -139,7 +142,7 @@
         <div class="dropdown dropdown-profile">
           <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
             <img src="../img/img3.jpg" class="wd-32 rounded-circle" alt="">
-            <span class="logged-name"><span class="hidden-xs-down">Jane Doe</span> <i class="fa fa-angle-down mg-l-3"></i></span>
+            <span class="logged-name"><span class="hidden-xs-down"><?php echo $this->session->userdata('login')['fname'] ?></span> <i class="fa fa-angle-down mg-l-3"></i></span>
           </a>
           <div class="dropdown-menu wd-200">
             <ul class="list-unstyled user-profile-nav">
@@ -148,7 +151,7 @@
               <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
               <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
               <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
-              <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
+              <li><a href="<?php echo base_url().'login/logout' ?>"><i class="icon ion-power"></i> Sign Out</a></li>
             </ul>
           </div><!-- dropdown-menu -->
         </div><!-- dropdown -->
