@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.0.1
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2018 at 10:12 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.5.38
+-- Generation Time: Oct 26, 2018 at 10:25 PM
+-- Server version: 10.1.32-MariaDB
+-- PHP Version: 7.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -277,7 +279,12 @@ CREATE TABLE `gold` (
 
 INSERT INTO `gold` (`id`, `gold_type`, `name`, `amount`, `qty`, `active`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'A', '30000.00', 10, 1, 1, '2018-10-01 20:36:37', '2018-10-01 20:44:31'),
-(2, 1, 'sad', '2.00', 2, 1, 1, '2018-10-01 20:48:06', '0000-00-00 00:00:00');
+(2, 1, 'sad', '2.00', 2, 1, 1, '2018-10-01 20:48:06', '0000-00-00 00:00:00'),
+(3, 1, 'a', '30000.00', 10, 1, 1, '2018-10-26 16:40:48', '0000-00-00 00:00:00'),
+(4, 1, 'CCC', '30000.00', 10, 1, 1, '2018-10-26 16:47:02', '0000-00-00 00:00:00'),
+(5, 1, 'aaaa', '30000.00', 10, 1, 1, '2018-10-26 16:51:50', '0000-00-00 00:00:00'),
+(6, 2, 'silver', '3000.00', 10, 1, 1, '2018-10-26 16:54:36', '0000-00-00 00:00:00'),
+(7, 2, 'silver new', '3000.00', 10, 1, 1, '2018-10-26 17:05:42', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -395,6 +402,9 @@ CREATE TABLE `user` (
   `mobile` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `silver` int(11) NOT NULL,
+  `gold` int(11) NOT NULL,
+  `amount` decimal(25,2) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
   `status` int(11) NOT NULL DEFAULT '1',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
@@ -406,13 +416,11 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `role_id`, `fname`, `lname`, `mobile`, `email`, `password`, `active`, `status`, `updated_at`, `created_at`, `deleted_at`) VALUES
-(1, '1', 'admin', 'admin', '9856985685', 'admin@gmail.com', 'D033E22AE348AEB5660FC2140AEC35850C4DA997', 1, 1, '0000-00-00 00:00:00', '2018-09-23 09:40:57', NULL),
-(2, '2', 'manish', 'chakravarti', '9856985674', 'manish@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, 1, '0000-00-00 00:00:00', '2018-09-23 10:10:12', NULL),
-(3, '4', 'user1', 'last', '9856985699', 'xxx@xxx.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, 1, '0000-00-00 00:00:00', '2018-10-05 18:44:45', NULL),
-(4, '4', 'user2', 'last', '9856745698', 'xxx@xxx.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, 1, '0000-00-00 00:00:00', '2018-10-05 18:48:20', NULL),
-(5, '4', 'user2', 'last', '9856745698', 'xxx@xxx.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, 1, '0000-00-00 00:00:00', '2018-10-05 18:48:20', NULL),
-(6, '4', 'user ', 'three', '9865985674', 'xxx@xxx.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, 1, '0000-00-00 00:00:00', '2018-10-13 18:31:49', NULL);
+INSERT INTO `user` (`id`, `role_id`, `fname`, `lname`, `mobile`, `email`, `password`, `silver`, `gold`, `amount`, `active`, `status`, `updated_at`, `created_at`, `deleted_at`) VALUES
+(1, '1', 'admin', 'admin', '9856985685', 'admin@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, 0, '0.00', 1, 1, '2018-10-26 19:56:54', '2018-09-23 09:40:57', NULL),
+(2, '2', 'manish', 'chakravarti', '9856985674', 'manish@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, 0, '0.00', 1, 1, '0000-00-00 00:00:00', '2018-09-23 10:10:12', NULL),
+(6, '4', 'user ', 'three', '9865985674', 'xxx@xxx.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, 0, '30000.00', 1, 1, '2018-10-26 19:34:38', '2018-10-13 18:31:49', NULL),
+(7, '4', 'manish', 'chakravarti', '09926331375', 'new@xxx.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, 0, '500000.00', 1, 1, '2018-10-26 20:20:00', '2018-10-26 20:18:59', NULL);
 
 --
 -- Indexes for dumped tables
@@ -469,36 +477,44 @@ ALTER TABLE `user`
 --
 ALTER TABLE `emi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
+
 --
 -- AUTO_INCREMENT for table `gold`
 --
 ALTER TABLE `gold`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `mst_fd`
 --
 ALTER TABLE `mst_fd`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `mst_rd`
 --
 ALTER TABLE `mst_rd`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `open_rd`
 --
 ALTER TABLE `open_rd`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
