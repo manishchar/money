@@ -340,6 +340,13 @@ $this->session->set_flashdata('message','Reject Successfull');
 	redirect(base_url().'scheme/viewRd');
 	}
 	
+	public function instalment(){
+		echo "instalment";
+	}
+
+	public function diposit(){
+		echo "diposit";
+	}
 
 
 }
