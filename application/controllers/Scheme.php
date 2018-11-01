@@ -175,6 +175,12 @@ $this->form_validation->set_rules('role_id', 'Role', 'required');
 		$amount = $this->input->post('amount');
 		$number = $this->input->post('number');
 		$format = $this->input->post('format');
+		if($format == '1'){
+			$formatFlag = "day";
+		}else{
+			$formatFlag = "month";
+		}
+
 		$interest_amount = ($amount*$interest_pre)/100;
 		$principal = floor($amount/$instalment);
 		$interest = floor($interest_amount/$instalment);
@@ -206,10 +212,13 @@ if($emiResult == 0){
                   
                 </tr>
               </thead>';
-
+$emi_date = date('Y-m-d H:i:s');
 for($i=1;$i<=$instalment;$i++){
 	$r_principal = $r_principal-$principal;
 	$r_interest = $r_interest - $interest;
+	$start_date = $emi_date;
+$emi_date = date('Y-m-d H:i:s', strtotime($start_date . ' +'.$number.' '.$formatFlag));
+
 	if($i== $instalment){
 		$principal +=$r_principal;
 		$interest +=$r_interest;
@@ -217,7 +226,7 @@ for($i=1;$i<=$instalment;$i++){
 	}
 	$html .= "<tr>";
 	$html .= "<td><input class='form-control' type='text' name='emiNumber[]' value='".$i."' readonly=''></td>";
-	$html .= "<td><input type='text' class='form-control' name='emiDate[]' value='".date('d-M-Y')."' readonly=''></td>";
+	$html .= "<td><input type='text' class='form-control' name='emiDate[]' value='".$emi_date."' readonly=''></td>";
 	$html .= "<td><input type='text' class='form-control' name='principal[]' value='".$principal."' readonly=''></td>";
 	$html .= "<td><input type='text' class='form-control' name='interest[]' value='".$interest."' readonly=''></td>";
 	$html .= "<td><input type='text' class='form-control' name='total[]' value='".($principal+$interest)."' readonly=''></td>";
@@ -341,7 +350,14 @@ $this->session->set_flashdata('message','Reject Successfull');
 	}
 	
 	public function instalment(){
-		echo "instalment";
+		$data['title']= "View Instalment";
+		$data['page_title']= "View Instalment";
+		$memberId = $this->session->userdata('login')['id'];
+		$data['Instalments']= $this->db->select('tab1.*,tab2.name,tab2.duration')
+		->join('mst_rd as tab2','tab2.id=tab1.schemeId')
+		->where('tab1.memberId',$memberId)->get('emi as tab1')->result();
+		//print_r($data);die;
+		$this->load->view('view_instalment',$data);
 	}
 
 	public function diposit(){

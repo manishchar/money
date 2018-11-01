@@ -90,7 +90,7 @@ if($rds){
                     <select class="form-control" id="format" onchange="calculateInstalment()"> 
                     <option value="0" disabled="" selected=""> Select Option</option>
                     <option value="1"> Day</option>
-                    <option value="1"> Month</option>
+                    <option value="2"> Month</option>
                     </select>
                   </div>
                 </div><!-- col-8 -->
@@ -172,14 +172,23 @@ $('#amount').val(obj.amount);
 function calculateInstalment(){
   var number = $('#number').val();
   var format = $('#format').val();
-
+  var duration = parseInt($('#duration').val());
   //alert(number +' '+ format);
   if(number != null && format != null){
     if(format == 1){
-      var totalDays = parseInt($('#duration').val())*30;
+      var totalDays = duration*30;
       $('#instalment').val(Math.floor(totalDays/number));
     }else{
       // select month
+      if(number <= 12){
+       //alert('in');
+        $('#instalment').val(Math.floor(duration/number));
+      }else{
+        //alert('wrong month : '+number+' Month');
+        $('#number').val(0);
+        $('#format').val(0);
+      }
+      
     }
   }else{
     //alert('some wrong');
