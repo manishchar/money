@@ -26,7 +26,7 @@
     <meta name="author" content="ThemePixels">
 
 
-    <title>Katniss Responsive Bootstrap 4 Admin Template</title>
+    <title><?=  isset($page_title)?$page_title:'Admin'; ?></title>
 
     <!-- vendor css -->
     <link href="<?php echo base_url().'resources' ?>/lib/font-awesome/css/font-awesome.css" rel="stylesheet">

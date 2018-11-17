@@ -34,26 +34,26 @@ if($this->session->flashdata('message')){ ?>
                 <div class="col-lg-4">
                   <div class="form-group">
                     <label class="form-control-label">Firstname: <span class="tx-danger">*</span><?php echo form_error('fname', '<span class="text text-danger">', '</span>'); ?></label>
-                    <input type="hidden" name="role_id" value="4">
-                    <input class="form-control" type="text" name="fname" value="" placeholder="Enter firstname">
+                    <input type="hidden" name="role_id" value="5">
+                    <input class="form-control" type="text" name="fname" value="<?= set_value('fname'); ?>" placeholder="Enter firstname">
                   </div>
                 </div><!-- col-4 -->
                 <div class="col-lg-4">
                   <div class="form-group">
                     <label class="form-control-label">Lastname: <span class="tx-danger">*</span><?php echo form_error('lname', '<span class="text text-danger">', '</span>'); ?></label>
-                    <input class="form-control" type="text" name="lname" value="" placeholder="Enter lastname">
+                    <input class="form-control" type="text" name="lname" value="<?= set_value('lname'); ?>" placeholder="Enter lastname">
                   </div>
                 </div><!-- col-4 -->
                 <div class="col-lg-4">
                   <div class="form-group">
                     <label class="form-control-label">Mobile: <span class="tx-danger">*</span><?php echo form_error('mobile', '<span class="text text-danger">', '</span>'); ?></label>
-                    <input class="form-control" type="number" name="mobile" value="" placeholder="Enter Mobile Number">
+                    <input class="form-control" type="number" name="mobile" value="<?= set_value('mobile'); ?>" placeholder="Enter Mobile Number">
                   </div>
                 </div><!-- col-4 -->
                 <div class="col-lg-8">
                   <div class="form-group mg-b-10-force">
                     <label class="form-control-label">Email Address: <span class="tx-danger">*</span><?php echo form_error('email', '<span class="text text-danger">', '</span>'); ?></label>
-                    <input class="form-control" type="email" name="email" value="xxx@xxx.com" placeholder="Enter Email Address">
+                    <input class="form-control" type="email" name="email" value="<?= set_value('email'); ?>" placeholder="Enter Email Address">
                   </div>
                 </div><!-- col-8 -->
                 

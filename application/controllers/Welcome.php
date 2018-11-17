@@ -10,11 +10,13 @@ class Welcome extends CI_Controller {
 	}
 	public function dashboard()
 	{
+		$data['title']= "Dashboard";
+		$data['page_title']= "Dashboard";
 		$this->load->view('dashboard');
 	}
 	public function member()
 	{
-		$data['roles'] = $this->db->get('role')->result();
+		$data['roles'] = $this->db->where('active','1')->get('role')->result();
 		if($this->input->post()){
 $this->form_validation->set_rules('fname', 'First Name', 'required');
 $this->form_validation->set_rules('lname', 'Last Name', 'required');

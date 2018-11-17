@@ -71,7 +71,11 @@ if($this->session->flashdata('message')){ ?>
                               <td><?php echo $i++; ?></td>
                               <td><?php echo $rd->name; ?></td>
                               <td><?php echo $rd->amount; ?></td>
-                              <td><?php echo $rd->duration; ?></td>
+                              <td><?php 
+
+                              echo $rd->days; 
+                              if($rd->type=='1'){ echo ' Days'; }else{ echo 'Month'; }
+                              ?></td>
                               <td><?php echo $rd->interest; ?></td>
                               <td><?php echo $rd->principal; ?></td>
                               <td><?php echo $rd->active; ?></td>

@@ -33,7 +33,7 @@ class Scheme extends CI_Controller {
 			}else{
 				$membership = $this->input->post('membership');
 				$data['id']= $membership;
-				$data['schemes']=$this->db->where('memberId',$membership)->get('open_rd')->result();
+				$data['schemes']=$this->db->select('tab1.*,tab2.name,tab2.duration')->join('mst_rd as tab2','tab2.id=tab1.schemeId')->where('tab1.memberId',$membership)->get('open_rd as tab1')->result();
 				
 
 				//redirect('scheme/openRd/'.$membership);
