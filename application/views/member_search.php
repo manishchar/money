@@ -34,7 +34,7 @@ if($this->session->flashdata('message')){ ?>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label">Membership Number: <span class="tx-danger">*</span><?php echo form_error('membership', '<span class="text text-danger">', '</span>'); ?></label>
-                    <input class="form-control" type="text" name="membership" placeholder="Enter Membership Number">
+                    <input class="form-control" type="text" name="membership" value="<?= $id; ?>" placeholder="Enter Membership Number">
                   </div>
                 </div><!-- col-4 -->
               </div><!-- row -->
@@ -63,9 +63,9 @@ if($this->session->flashdata('message')){ ?>
               </thead>
               <tbody>
             <?php  
-            if(false){
+            if($schemes){
               $i=1;
-              foreach($rds as $key=>$rd){ ?>
+              foreach($schemes as $key=>$rd){ ?>
 
                         <tr>
                               <td><?php echo $i++; ?></td>

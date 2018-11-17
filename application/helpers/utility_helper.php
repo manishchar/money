@@ -9,7 +9,7 @@ function userData($uid){
 }
 function getGold(){
  $CI = &get_instance();
-    $result = $CI->db->where("gold_type",'1')->order_by('id','DESC')->limit(1)->get('gold')->row();
+ $result = $CI->db->where("gold_type",'1')->order_by('id','DESC')->limit(1)->get('gold')->row();
     return $result;
 }
 

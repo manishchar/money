@@ -16,6 +16,9 @@
 <?php  
 $gold = getGold();
 $silver = getSilver(); 
+$id = $this->session->userdata('login')['id'];
+$user = userData($id); 
+//print_r($user->amount);
 ?>
       <div class="kt-pagebody">
 
@@ -29,7 +32,9 @@ $silver = getSilver();
                     <h2 class="tx-lato tx-inverse"><?php echo $gold->amount; ?></h2>
                     
                     <p class="tx-12"><span class="tx-success"><?php echo $gold->qty; ?></span> Gram
-                      <button onclick="buy('1')" class=" btn btn-info pull-right">BUY</button>
+                      <?php if($user->amount>0){ ?>
+                        <button onclick="buy('1')" class=" btn btn-info pull-right">BUY</button>
+                      <?php }  ?>
                     </p>
                   </div><!-- card-body -->
                   <div id="rs1" class="ht-50 ht-sm-70 mg-r--1"></div>
@@ -41,7 +46,10 @@ $silver = getSilver();
                     <h6 class="card-body-title tx-12 tx-spacing-2 mg-b-20 tx-danger">Silver</h6>
                     <h2 class="tx-lato tx-inverse"><?php echo $silver->amount; ?></h2>
                      <p class="tx-12"><span class="tx-success"><?php echo $silver->qty; ?></span> Gram
-                      <button class="btn btn-info pull-right" onclick="buy('1')">BUY</button >
+                      <?php if($user->amount>0){ ?>
+                        <button class="btn btn-info pull-right" onclick="buy('2')">BUY</button >
+                      <?php }  ?>
+                      
                     </p>
                   </div><!-- card-body -->
                   <div id="rs2" class="ht-50 ht-sm-70 mg-r--1"></div>

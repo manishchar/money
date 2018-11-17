@@ -7,7 +7,7 @@ class Scheme extends CI_Controller {
 		$data['title']= "Member for RD";
 		$data['page_title']= "Member for RD";
 		if(isset($_POST['search'])){
-$this->form_validation->set_rules('membership', 'Member ship Number', 'required');
+			$this->form_validation->set_rules('membership', 'Member ship Number', 'required');
 			if ($this->form_validation->run() == FALSE){
 				$this->load->view('member_search',$data);
 			}else{
@@ -18,6 +18,31 @@ $this->form_validation->set_rules('membership', 'Member ship Number', 'required'
 		}else{
 				$this->load->view('member_search',$data);
 		}		
+	}
+
+
+	public function deposit()
+	{
+		$data['title']= "Dposit";
+		$data['page_title']= "Dposit";
+		$data['id']= "";
+		if(isset($_POST['search'])){
+			$this->form_validation->set_rules('membership', 'Member ship Number', 'required');
+			if ($this->form_validation->run() == FALSE){
+				//$this->load->view('member_search',$data);
+			}else{
+				$membership = $this->input->post('membership');
+				$data['id']= $membership;
+				$data['schemes']=$this->db->where('memberId',$membership)->get('open_rd')->result();
+				
+
+				//redirect('scheme/openRd/'.$membership);
+				//echo "Success ".$membership;
+			}
+		}else{
+				//$this->load->view('member_search',$data);
+		}		
+		$this->load->view('member_search',$data);
 	}
 
 	public function viewRd()

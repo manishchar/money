@@ -72,7 +72,7 @@
             </ul>
         </li>
         <li class="nav-item">
-          <a href="<?php echo base_url().'view_customer' ?>" class="nav-link"><i class="icon ion-ios-filing-outline"></i>
+          <a href="<?php echo base_url().'scheme/deposit' ?>" class="nav-link"><i class="icon ion-ios-filing-outline"></i>
             <span>Diposit</span></a>
         </li>
       
