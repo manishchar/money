@@ -72,8 +72,17 @@
             </ul>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
           <a href="<?php echo base_url().'scheme/deposit' ?>" class="nav-link"><i class="icon ion-ios-filing-outline"></i>
+=======
+          <a href="<?php echo base_url().'scheme/diposit' ?>" class="nav-link"><i class="icon ion-ios-filing-outline"></i>
+>>>>>>> 91d79b91046c672da4d313586bd26c1052540747
             <span>Diposit</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a href="<?php echo base_url().'scheme/instalment' ?>" class="nav-link"><i class="icon ion-ios-filing-outline"></i>
+            <span>Instalment</span></a>
         </li>
       
       </ul>

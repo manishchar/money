@@ -8,6 +8,87 @@ class Welcome extends CI_Controller {
 		//$this->load->view('dashboard');
 		redirect('/welcome/dashboard');
 	}
+
+	public function purchase(){
+		
+		$userId = $this->input->post('userId');
+		$goldId = $this->input->post('goldId');
+		$buyQty = $this->input->post('buyQty');
+		$gold_type = $this->input->post('gold_type');
+		$purchaseAmount = $this->input->post('purchaseAmount');
+		$remainingAmount = $this->input->post('remainingAmount');
+		$user = userData($userId);
+		if($gold_type == '1'){
+			//gold
+			$userUpdate = array(
+				'amount'=>$remainingAmount,
+				'gold'=>$user->gold+$buyQty
+				);
+			$head_id = '3';
+		}else{
+			//silver
+			$userUpdate = array(
+				'amount'=>$remainingAmount,
+				'silver'=>$user->silver+$buyQty
+				);
+			$head_id = '4';
+		}
+		
+	$purchase = array(
+		'user_id'=>$userId,
+		'gold_id'=>$goldId,
+		'qty'=>$buyQty,
+		'amount'=>$purchaseAmount,
+		'created_date'=>date('Y-m-d h:m:s'),
+	);
+
+	$account[] = array(
+		'user_id'=>$userId,
+		'head_id'=>$head_id,
+		'type'=>'dr',
+		'amount'=>$purchaseAmount,
+		'created_by'=>$this->session->userdata('login')['id'],
+	);
+	
+	$account[] = array(
+		'user_id'=>$userId,
+		'head_id'=>'6',
+		'type'=>'cr',
+		'amount'=>$purchaseAmount,
+		'created_by'=>$this->session->userdata('login')['id'],
+	);
+
+//echo json_encode($purchase);
+//echo json_encode($account);die;
+	$this->db->trans_begin();
+	$this->db->insert_batch('account_entry',$account);
+	$this->db->insert('purchase_detail',$purchase);
+	$this->db->where('id',$userId)->update('user',$userUpdate);
+	if ($this->db->trans_status() === FALSE)
+	{
+	    $this->db->trans_rollback();
+	    $response = array('status'=>'failed','message'=>'Record Failed');
+	}
+	else
+	{
+	    $this->db->trans_commit();
+	    $response = array('status'=>'success','message'=>'Record Save Successfully');
+	}
+	echo json_encode($response);
+}
+	public function getGoldPrice(){
+		$type = $this->input->post("type");
+		if($type == '1'){
+			$result = getGold();
+		}else if($type == '2'){
+			$result = getSilver();
+		}
+		$data['gold'] =$result;
+		//$data['user'] =$this->session->userdata('login')['id'];
+		$data['user'] =userData($this->session->userdata('login')['id']);
+		echo json_encode($data);
+	}
+
 	public function dashboard()
 	{
 		$data['title']= "Dashboard";

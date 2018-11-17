@@ -124,4 +124,56 @@ $this->form_validation->set_rules('role_id', 'Role', 'required');
 		}
 echo json_encode($response);
 	}
+
+	public function payEmi(){
+		
+		$id = $this->input->post('id');
+		$user_id = $this->session->userdata('login')['id'];
+		//echo json_encode($_POST);die;
+		$result = $this->db->select('tab1.*,tab2.amount')->join('user as tab2','tab1.memberId=tab2.id')->where('tab1.id',$id)->get('emi as tab1')->row();
+		$paidAmount = $result->paidAmount;
+		$amount = $result->amount;
+	if($paidAmount < $amount){
+			$amount = $amount -$paidAmount;
+			$account[] = array(
+					'user_id'=>$user_id,
+					'head_id'=>'2',
+					'type'=>'dr',
+					'amount'=>$paidAmount,
+					'created_by'=>$this->session->userdata('login')['id'],
+				);
+				
+			$account[] = array(
+				'user_id'=>$user_id,
+				'head_id'=>'2',
+				'type'=>'cr',
+				'amount'=>$paidAmount,
+				'created_by'=>$this->session->userdata('login')['id'],
+			);
+			//echo json_encode($account);die;
+			$this->db->trans_begin();
+
+			$this->db->insert_batch('account_entry',$account);
+			//echo json_encode($result);die;
+			$this->db->where('id',$user_id)->update('user',array('amount'=>$amount));
+			$this->db->where('id',$id)->update('emi',array('status'=>'1'));
+				if ($this->db->trans_status() === FALSE)
+				{
+				        $this->db->trans_rollback();
+				        $response = array('status'=>'failed','code'=>'500','message'=>'Operation Failed');
+				}
+				else
+				{
+				        $this->db->trans_commit();
+				        $response = array('status'=>'success','code'=>'200','message'=>'Installment Pay');
+				}
+
+	}else{
+				$response = array('status'=>'failed','code'=>'201','message'=>'Insuficient Amount');
+	}
+					
+	echo json_encode($response);
+}
+	
+
 }
