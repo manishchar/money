@@ -1,6 +1,13 @@
 <?php
 
 
+function customerData($uid){
+    
+ $CI = &get_instance();
+    $result = $CI->db->where("id",$uid)->where('role_id','5')->get('user')->row();
+    return $result;
+}
+
 function userData($uid){
     
  $CI = &get_instance();

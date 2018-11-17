@@ -32,6 +32,11 @@ class Scheme extends CI_Controller {
 				//$this->load->view('member_search',$data);
 			}else{
 				$membership = $this->input->post('membership');
+				$user = customerData($membership);
+				if(empty($user) || count($user)<0){
+					$this->session->set_flashdata('error','Invalid Membership Number');
+					redirect(base_url('scheme/deposit'));
+				}
 				$data['id']= $membership;
 				$data['schemes']=$this->db->select('tab1.*,tab2.name,tab2.duration')->join('mst_rd as tab2','tab2.id=tab1.schemeId')->where('tab1.memberId',$membership)->get('open_rd as tab1')->result();
 				
@@ -61,6 +66,12 @@ class Scheme extends CI_Controller {
 	public function openRd($id)
 	{
 		$data['id']= $id;
+		$user = customerData($id);
+		if(empty($user) || count($user)<0){
+			$this->session->set_flashdata('error','Invalid Membership Number');
+			redirect(base_url('scheme'));
+		}
+		//die;
 		$data['title']= "RD";
 		$data['page_title']= "RD";
 		$data['rds']= $this->db->get('mst_rd')->result();
@@ -374,6 +385,20 @@ $this->session->set_flashdata('message','Reject Successfull');
 	redirect(base_url().'scheme/viewRd');
 	}
 	
+	public function instalmentList($id,$schemeId){
+		if($id){
+		$data['title']= "View Instalment";
+		$data['page_title']= "View Instalment";
+		//$memberId = $this->session->userdata('login')['id'];
+		$data['Instalments']= $this->db->select('tab1.*,tab2.name,tab2.duration')
+		->join('mst_rd as tab2','tab2.id=tab1.schemeId')
+		->where('tab1.memberId',$id)->where('tab1.schemeId',$schemeId)->get('emi as tab1')->result();
+		//print_r($data);die;
+		$this->load->view('view_instalment',$data);
+	}else{
+		redirect(base_url('scheme/deposit') );
+	}
+	}
 	public function instalment(){
 		$data['title']= "View Instalment";
 		$data['page_title']= "View Instalment";

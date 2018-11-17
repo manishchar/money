@@ -79,7 +79,7 @@ if($this->session->flashdata('message')){ ?>
                               <td><?php echo $rd->interest; ?></td>
                               <td><?php echo $rd->principal; ?></td>
                               <td><?php echo $rd->active; ?></td>
-                              <td>Edit | Delete | Active</td>
+                              <td><a href="<?php echo base_url().'scheme/instalmentList/'.$rd->memberId.'/'.$rd->schemeId; ?>">List</td>
                             </tr>
 
               <?php } } ?>

@@ -107,7 +107,7 @@ if($rds){
 
               <div class="form-layout-footer">
                 <button type="button" onclick="generateEmi()" class="btn btn-default mg-r-5">Generate EMI</button>
-                <button class="btn btn-secondary">Cancel</button>
+                <a href="<?php echo base_url('scheme'); ?>" class="btn btn-secondary">Cancel</a>
               </div><!-- form-layout-footer -->
             </div><!-- form-layout -->
           </form>
@@ -221,7 +221,7 @@ $('#responseMessage').html('<div class="alert alert-danger">'+obj.message+'</div
 
 },
 });
-    alert('cal');
+    console.log('call for generateEmi');
   }else{
     alert('select Instalment');
   }
@@ -253,7 +253,7 @@ if( obj.status == 'failed'){
 }
 },
 });
-  alert('form submit');
+  console.log('form submit');
   return false;
 }
     </script>

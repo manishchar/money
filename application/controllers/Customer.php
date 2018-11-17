@@ -59,7 +59,7 @@ $this->form_validation->set_rules('email', 'Email', 'required|is_unique[user.ema
 	{
 		$data['title']= "View Customer";
 		$data['page_title']= "View Customer";
-		$data['customers']= $this->db->where('role_id',4)->get('user')->result();
+		$data['customers']= $this->db->where('role_id',5)->get('user')->result();
 		$this->load->view('view_customer',$data);
 	}
 	public function member()
@@ -127,12 +127,17 @@ echo json_encode($response);
 
 	public function payEmi(){
 		
-		$id = $this->input->post('id');
+		$id = $this->input->post('emi_id');//emi id
+		$memberId = $this->input->post('memberId');//emi id
 		$user_id = $this->session->userdata('login')['id'];
-		//echo json_encode($_POST);die;
-		$result = $this->db->select('tab1.*,tab2.amount')->join('user as tab2','tab1.memberId=tab2.id')->where('tab1.id',$id)->get('emi as tab1')->row();
+		
+		$result = $this->db->where('id',$id)->get('emi')->row();
+		$user = userData($user_id);
 		$paidAmount = $result->paidAmount;
-		$amount = $result->amount;
+		$amount = $user->amount;
+		// echo json_encode($result);
+		// echo $amount;die;
+		// die;
 	if($paidAmount < $amount){
 			$amount = $amount -$paidAmount;
 			$account[] = array(

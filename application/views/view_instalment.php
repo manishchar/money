@@ -50,7 +50,7 @@
                               <?php 
                               if($Instalment->status == '0'){ ?>
                               
-                              <button class="btn btn-info" onclick="payEmi('<?php echo $Instalment->id; ?>')">Pay</button>
+                              <button class="btn btn-info" onclick="payEmi('<?php echo $Instalment->id; ?>','<?php echo $Instalment->memberId; ?>')">Pay</button>
                               <?php }else{ ?>
                               <span class="text text-success">PAID</span>
                               <?php } 
@@ -126,13 +126,13 @@ function addAmount(id,name,amount){
   $('#addAmount').modal('show');
 }
 
-function payEmi(id){
-  alert(id);
+function payEmi(emi_id,memberId){
+  console.log(emi_id);
 
   $.ajax({
     type:"POST",
     url:"<?php echo base_url().'customer/payEmi'; ?>",
-    data:{id:id},
+    data:{emi_id:emi_id,memberId:memberId},
     success:function(res){
       console.log(res);
       var obj = JSON.parse(res);

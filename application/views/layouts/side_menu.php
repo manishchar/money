@@ -1,6 +1,6 @@
     <!-- ##### SIDEBAR LOGO ##### -->
     <div class="kt-sideleft-header">
-      <div class="kt-logo"><a href="index.html">katniss</a></div>
+      <div class="kt-logo"><a href="index.html">Admin</a></div>
       <div id="ktDate" class="kt-date-today"></div>
       <div class="input-group kt-input-search">
         <input type="text" class="form-control" placeholder="Search...">
@@ -9,7 +9,11 @@
         </span>
       </div><!-- input-group -->
     </div><!-- kt-sideleft-header -->
-
+<?php
+$id = $this->session->userdata('login')['id'];
+$user = userData($id);
+echo $user->role_id; 
+?>
     <!-- ##### SIDEBAR MENU ##### -->
     <div class="kt-sideleft">
       <label class="kt-sidebar-label">Navigation</label>
@@ -20,7 +24,11 @@
             <span>Dashboard</span>
           </a>
         </li><!-- nav-item -->
-        <li class="nav-item">
+        
+      
+<?php 
+if($user->role_id == '1'){ ?>
+<li class="nav-item">
           <a href="" class="nav-link with-sub">
             <i class="icon ion-ios-gear-outline"></i>
             <span>Master</span>
@@ -29,11 +37,15 @@
             <li class="nav-item">
               <a href="<?php echo base_url().'master/gold'; ?>" class="nav-link">Add Gold</a>
             </li>
-            <li class="nav-item"><a href="<?php echo base_url().'master/fd'; ?>" class="nav-link">Add FD</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Add FD</a></li>
             <li class="nav-item"><a href="<?php echo base_url().'master/rd'; ?>" class="nav-link">Add RD</a></li>
           </ul>
         </li><!-- nav-item -->
-        <li class="nav-item">
+        
+
+<?php }
+ if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '3'){ ?>
+  <li class="nav-item">
           <a href="" class="nav-link with-sub">
             <i class="icon ion-ios-gear-outline"></i>
             <span>Member</span>
@@ -46,7 +58,6 @@
             <li class="nav-item"><a href="form-validation.html" class="nav-link">Archive Member</a></li>
           </ul>
         </li><!-- nav-item -->
-
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
             <i class="icon ion-ios-filing-outline"></i>
@@ -57,8 +68,15 @@
             <li class="nav-item"><a href="<?php echo base_url().'customer' ?>" class="nav-link">Add Customer</a></li>
             <li class="nav-item"><a href="<?php echo base_url().'customer/view_customer' ?>" class="nav-link">View Customer</a></li>
             </ul>
-        </li>
-        <li class="nav-item">
+  </li>
+  
+<?php }
+ if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '3'){ ?>
+
+       
+<?php }
+ if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '3' || $user->role_id == '4'){ ?>
+ <li class="nav-item">
           <a href="" class="nav-link with-sub">
             <i class="icon ion-ios-filing-outline"></i>
             <span>New Sheme</span>
@@ -72,18 +90,16 @@
             </ul>
         </li>
         <li class="nav-item">
-<<<<<<< HEAD
           <a href="<?php echo base_url().'scheme/deposit' ?>" class="nav-link"><i class="icon ion-ios-filing-outline"></i>
-=======
-          <a href="<?php echo base_url().'scheme/diposit' ?>" class="nav-link"><i class="icon ion-ios-filing-outline"></i>
->>>>>>> 91d79b91046c672da4d313586bd26c1052540747
-            <span>Diposit</span></a>
+          <span>Diposit</span></a>
         </li>
-
-        <li class="nav-item">
-          <a href="<?php echo base_url().'scheme/instalment' ?>" class="nav-link"><i class="icon ion-ios-filing-outline"></i>
-            <span>Instalment</span></a>
-        </li>
+<?php }else if($user->role_id == '5'){ ?>
+<li class="nav-item">
+  <a href="<?php echo base_url().'scheme/instalment' ?>" class="nav-link"><i class="icon ion-ios-filing-outline"></i>
+    <span>Instalment</span></a>
+</li>
+<?php } ?>
+        
       
       </ul>
     </div><!-- kt-sideleft -->
@@ -172,3 +188,4 @@
         <span class="breadcrumb-item active"><?php echo $title; ?></span>
       </nav>
     </div><!-- kt-breadcrumb -->
+}
